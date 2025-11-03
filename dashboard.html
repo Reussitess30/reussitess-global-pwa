@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Réussitess®</title>
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); max-width: 600px; margin: 0 auto; }
+        h1 { color: #007bff; text-align: center; margin-bottom: 30px; }
+        h2 { border-bottom: 2px solid #ccc; padding-bottom: 10px; margin-top: 40px; }
+        textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; resize: vertical; }
+        button { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #218838; }
+        #post-status { margin-top: 15px; text-align: center; font-weight: bold; }
+        .logout-link { margin-top: 20px; text-align: center; }
+        .logout-link a { color: #dc3545; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Tableau de Bord Sécurisé</h1>
+    
+    <div id="userInfo"></div>
+    
+    <h2>✍️ Créer un nouveau Post</h2>
+    <form id="postForm">
+        <textarea id="postContent" rows="4" placeholder="Quoi de neuf ? Entrez votre message ici."></textarea>
+        <button type="submit">Publier</button>
+    </form>
+    <div id="post-status"></div>
+
+    <div class="logout-link">
+        <a href="#" id="logoutBtn">Se Déconnecter</a>
+    </div>
+</div>
+
+<script>
+    const token = localStorage.getItem('authToken');
+
+    // Vérification de sécurité : si pas de token, rediriger vers login
+    if (!token) {
+        window.location.href = './login.html'; // Chemin absolu
+    }
+
+    // Affichage des infos utilisateur (pour le débug)
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        document.getElementById('userInfo').innerHTML = `
+            <p><strong>Connecté en tant que :</strong> ${payload.email}</p>
+            <p><em>(Token valide jusqu'à ${new Date(payload.exp * 1000).toLocaleTimeString()})</em></p>
+        `;
+    } catch (e) {
+        // Ignorer si le token est mal formé
+    }
+
+    // Gère la soumission du formulaire de post
+    document.getElementById('postForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const content = document.getElementById('postContent').value;
+        const postStatusDiv = document.getElementById('post-status');
+        
+        postStatusDiv.textContent = 'Envoi sécurisé en cours...';
+
+        try {
+            const response = await fetch('http://localhost:3000/api/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token 
+                },
+                body: JSON.stringify({ content })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                postStatusDiv.textContent = '✅ Post créé et publié avec succès ! (Validation NeDB OK)';
+                postStatusDiv.style.color = 'green';
+                document.getElementById('postContent').value = ''; 
+            } else if (response.status === 401 || response.status === 403) {
+                postStatusDiv.textContent = '❌ Session expirée ou non autorisée. Veuillez vous reconnecter.';
+                postStatusDiv.style.color = 'red';
+                localStorage.removeItem('authToken');
+                setTimeout(() => window.location.href = './login.html', 2000); // Chemin absolu
+            } else {
+                postStatusDiv.textContent = '❌ Échec de la publication: ' + (data.error || 'Erreur inconnue.');
+                postStatusDiv.style.color = 'red';
+            }
+        } catch (error) {
+            postStatusDiv.textContent = '❌ Erreur réseau ou API non disponible.';
+            postStatusDiv.style.color = 'red';
+        }
+    });
+
+    // Gère la déconnexion
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        localStorage.removeItem('authToken'); 
+        window.location.href = './index.html'; // Chemin absolu
+    });
+</script>
+
+</body>
+</html>

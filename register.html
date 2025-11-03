@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription Réussitess®</title>
+    <link rel="manifest" href="./manifest.json">
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f9; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 300px; }
+        h1 { text-align: center; color: #28a745; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input[type="email"], input[type="password"] { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; background-color: #28a745; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; font-size: 1em; }
+        button:hover { background-color: #218838; }
+        #status { margin-top: 15px; text-align: center; font-weight: bold; }
+        .login-link { text-align: center; margin-top: 15px; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>S'inscrire</h1>
+    <form id="registerForm">
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" required>
+
+        <button type="submit">S'inscrire</button>
+    </form>
+    <div id="status"></div>
+    <div class="login-link">
+        <a href="./login.html">J'ai déjà un compte</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const statusDiv = document.getElementById('status');
+        
+        statusDiv.textContent = 'Inscription en cours...';
+        statusDiv.style.color = 'blue';
+
+        try {
+            const response = await fetch('http://localhost:3000/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                statusDiv.textContent = '✅ Inscription Réussie ! Redirection...';
+                statusDiv.style.color = 'green';
+                
+                // >>> CORRECTION DE CHEMIN ABSOLU ICI <<<
+                setTimeout(() => {
+                    window.location.href = './login.html'; 
+                }, 1500);
+
+            } else {
+                statusDiv.textContent = '❌ Échec de l\'inscription: ' + (data.error || 'Erreur inconnue.');
+                statusDiv.style.color = 'red';
+            }
+        } catch (error) {
+            statusDiv.textContent = '❌ Échec de la connexion au serveur API. Vérifiez la Session Termux 1.';
+            statusDiv.style.color = 'red';
+        }
+    });
+</script>
+
+</body>
+</html>

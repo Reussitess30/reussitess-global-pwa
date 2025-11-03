@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007bff">
+    <title>Reussitess® - Mode Hors Ligne</title>
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+
+    <style>
+        /* Styles conservés et légèrement ajustés pour le feedback */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .offline-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .offline-icon.pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Nouveaux styles pour les statuts */
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .status.checking {
+            background: #fff3cd; /* Jaune pâle */
+            color: #856404;
+        }
+
+        .status.online {
+            background: #d4edda; /* Vert pâle */
+            color: #155724;
+        }
+        
+        .status.offline {
+            background: #f8d7da; /* Rouge pâle */
+            color: #721c24;
+        }
+        
+        /* Bouton */
+        .btn-retry {
+            background: #007bff;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        
+        .btn-retry:hover:not(:disabled) {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-retry:disabled {
+            background: #99c2ff;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container" role="alert" aria-live="polite">
+        <div class="offline-icon pulse" id="offlineIcon">📡</div>
+        <h1>Mode Hors Ligne</h1>
+        <p>Vous n'êtes pas connecté à Internet. L'accès à nos dernières mises à jour est suspendu.</p>
+        <p>Reussitess® tentera de se reconnecter automatiquement.</p>
+        
+        <button class="btn-retry" id="retryBtn" aria-label="Tenter une nouvelle connexion">
+            🔄 Vérifier la connexion
+        </button>
+        
+        <div class="status checking" id="status">
+            Vérification de la connexion en cours...
+        </div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const retryBtn = document.getElementById('retryBtn');
+        const iconEl = document.getElementById('offlineIcon');
+        let checkInterval;
+        let isChecking = false;
+
+        function updateStatus(message, statusClass) {
+            statusEl.innerHTML = message;
+            statusEl.className = 'status ' + statusClass;
+            iconEl.classList.remove('pulse');
+            if (statusClass === 'checking') {
+                 iconEl.classList.add('pulse');
+            }
+        }
+
+        function redirectToOnline() {
+            // Arrêter la vérification et les écouteurs d'événements
+            clearInterval(checkInterval);
+            window.removeEventListener('online', handleOnlineEvent);
+            
+            updateStatus('🟢 Connexion détectée ! Redirection...', 'online');
+            
+            // Redirection vers la page principale
+            setTimeout(() => {
+                 window.location.href = './'; // Redirige vers l'index
+            }, 1000);
+        }
+
+        function checkConnection() {
+            if (isChecking) return;
+            isChecking = true;
+            
+            retryBtn.disabled = true;
+            updateStatus('En cours de vérification...', 'checking');
+
+            if (navigator.onLine) {
+                // Si la connexion est déjà là, rediriger
+                redirectToOnline();
+                isChecking = false;
+            } else {
+                // Simuler un court délai de vérification avant de reporter l'état hors ligne
+                setTimeout(() => {
+                    updateStatus('🔴 Toujours hors ligne. Vérification automatique toutes les 5 secondes.', 'offline');
+                    retryBtn.disabled = false;
+                    isChecking = false;
+                }, 800);
+            }
+        }
+        
+        // Gère l'événement natif 'online'
+        function handleOnlineEvent() {
+             // Rediriger immédiatement si le navigateur signale une reconnexion
+             redirectToOnline();
+        }
+
+        // 1. Initialisation
+        window.addEventListener('online', handleOnlineEvent);
+        
+        // 2. Vérification périodique (toutes les 5 secondes)
+        checkInterval = setInterval(checkConnection, 5000);
+        
+        // 3. Vérification initiale immédiate
+        checkConnection();
+        
+        // 4. Gestion du bouton Réessayer
+        retryBtn.addEventListener('click', () => {
+             // Arrêter l'intervalle temporairement, vérifier immédiatement, puis relancer l'intervalle
+             clearInterval(checkInterval);
+             checkConnection();
+             checkInterval = setInterval(checkConnection, 5000);
+        });
+
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#007bff">
+    <title>Reussitess® - Mode Hors Ligne</title>
+    
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+
+    <style>
+        /* Styles conservés et légèrement ajustés pour le feedback */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .offline-container {
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .offline-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+            transition: all 0.5s ease;
+        }
+        
+        .offline-icon.pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Nouveaux styles pour les statuts */
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            color: #666;
+            transition: all 0.3s ease;
+        }
+        
+        .status.checking {
+            background: #fff3cd; /* Jaune pâle */
+            color: #856404;
+        }
+
+        .status.online {
+            background: #d4edda; /* Vert pâle */
+            color: #155724;
+        }
+        
+        .status.offline {
+            background: #f8d7da; /* Rouge pâle */
+            color: #721c24;
+        }
+        
+        /* Bouton */
+        .btn-retry {
+            background: #007bff;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+        }
+        
+        .btn-retry:hover:not(:disabled) {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-retry:disabled {
+            background: #99c2ff;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container" role="alert" aria-live="polite">
+        <div class="offline-icon pulse" id="offlineIcon">📡</div>
+        <h1>Mode Hors Ligne</h1>
+        <p>Vous n'êtes pas connecté à Internet. L'accès à nos dernières mises à jour est suspendu.</p>
+        <p>Reussitess® tentera de se reconnecter automatiquement.</p>
+        
+        <button class="btn-retry" id="retryBtn" aria-label="Tenter une nouvelle connexion">
+            🔄 Vérifier la connexion
+        </button>
+        
+        <div class="status checking" id="status">
+            Vérification de la connexion en cours...
+        </div>
+    </div>
+
+    <script>
+        const statusEl = document.getElementById('status');
+        const retryBtn = document.getElementById('retryBtn');
+        const iconEl = document.getElementById('offlineIcon');
+        let checkInterval;
+        let isChecking = false;
+
+        function updateStatus(message, statusClass) {
+            statusEl.innerHTML = message;
+            statusEl.className = 'status ' + statusClass;
+            iconEl.classList.remove('pulse');
+            if (statusClass === 'checking') {
+                 iconEl.classList.add('pulse');
+            }
+        }
+
+        function redirectToOnline() {
+            // Arrêter la vérification et les écouteurs d'événements
+            clearInterval(checkInterval);
+            window.removeEventListener('online', handleOnlineEvent);
+            
+            updateStatus('🟢 Connexion détectée ! Redirection...', 'online');
+            
+            // Redirection vers la page principale
+            setTimeout(() => {
+                 window.location.href = './'; // Redirige vers l'index
+            }, 1000);
+        }
+
+        function checkConnection() {
+            if (isChecking) return;
+            isChecking = true;
+            
+            retryBtn.disabled = true;
+            updateStatus('En cours de vérification...', 'checking');
+
+            if (navigator.onLine) {
+                // Si la connexion est déjà là, rediriger
+                redirectToOnline();
+                isChecking = false;
+            } else {
+                // Simuler un court délai de vérification avant de reporter l'état hors ligne
+                setTimeout(() => {
+                    updateStatus('🔴 Toujours hors ligne. Vérification automatique toutes les 5 secondes.', 'offline');
+                    retryBtn.disabled = false;
+                    isChecking = false;
+                }, 800);
+            }
+        }
+        
+        // Gère l'événement natif 'online'
+        function handleOnlineEvent() {
+             // Rediriger immédiatement si le navigateur signale une reconnexion
+             redirectToOnline();
+        }
+
+        // 1. Initialisation
+        window.addEventListener('online', handleOnlineEvent);
+        
+        // 2. Vérification périodique (toutes les 5 secondes)
+        checkInterval = setInterval(checkConnection, 5000);
+        
+        // 3. Vérification initiale immédiate
+        checkConnection();
+        
+        // 4. Gestion du bouton Réessayer
+        retryBtn.addEventListener('click', () => {
+             // Arrêter l'intervalle temporairement, vérifier immédiatement, puis relancer l'intervalle
+             clearInterval(checkInterval);
+             checkConnection();
+             checkInterval = setInterval(checkConnection, 5000);
+        });
+
+    </script>
+</body>
+</html>
