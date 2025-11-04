@@ -259,3 +259,15 @@ const AmazonShops = () => {
                     <p className="description">Conheça minha **loja na Amazon** com **produtos selecionados** para o Brasil!</p>
                     <a href="https://amzlink.to/az0ymmoCLHvyA" className="shop-link" target="_blank" rel="nofollow sponsored">Visitar Loja Brasil</a>
                     <p className="disclaimer">Como Associado da Amazon, recebo
+// Assurez-vous d'avoir 'useRouter' importé en haut du fichier
+import { useRouter } from 'next/router';
+// ...
+const router = useRouter(); // Assurez-vous d'initialiser le routeur
+
+// ... dans votre fonction de soumission de formulaire (handleLogin ou handleSignup)
+if (error) {
+    alert(error.message);
+} else {
+    // Redirige l'utilisateur vers la page de profil après connexion/inscription réussie
+    router.push('/profile'); 
+}
