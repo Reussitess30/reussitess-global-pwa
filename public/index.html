@@ -1,67 +1,31 @@
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Reussitess® Global - Accédez à nos 42 boutiques Amazon dans 14 pays. Excellence, Innovation, Succès.">
-    <meta name="keywords" content="boutiques amazon mondiales, produits amazon, affiliation, influenceur, sélection de produits, fb942837, reussitess">
+    <meta name="description" content="Reussitess® Global - Accédez à nos 26 boutiques Amazon dans 14 pays. Excellence, Innovation, Succès.">
     <meta name="theme-color" content="#007bff">
-    
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-    <link rel="apple-touch-icon" href="./icon-192.png">
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Reussitess®">
-    
-    <meta property="og:title" content="Reussitess® Global - Boutiques Amazon Mondiales">
-    <meta property="og:description" content="Découvrez nos 42 boutiques Amazon dans 14 pays">
-    <meta property="og:type" content="website">
-    
-    <title>Reussitess® Global - Boutiques Amazon Mondiales</title>
-    
+    <title>Reussitess® Global</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans Devanagari', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: #333;
         }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
         header {
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 20px;
             margin-bottom: 30px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
             text-align: center;
         }
-        
-        h1 {
-            color: #007bff;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            color: #666;
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-        
+        h1 { color: #007bff; font-size: 2.5em; margin-bottom: 10px; }
+        .subtitle { color: #666; font-size: 1.2em; margin-top: 10px; }
         .install-prompt {
             background: linear-gradient(135deg, #ff9500, #ffb84d);
             color: white;
@@ -70,20 +34,14 @@
             margin-bottom: 20px;
             display: none;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(255, 149, 0, 0.3);
         }
-        
-        .install-prompt.show {
-            display: block;
-        }
-        
+        .install-prompt.show { display: block; }
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
         .stat-card {
             background: white;
             padding: 25px;
@@ -92,24 +50,9 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-number {
-            font-size: 3em;
-            font-weight: bold;
-            color: #ff9500;
-            display: block;
-        }
-        
-        .stat-label {
-            color: #666;
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-        
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-number { font-size: 3em; font-weight: bold; color: #ff9500; display: block; }
+        .stat-label { color: #666; margin-top: 10px; font-size: 1.1em; }
         .filter-bar {
             background: white;
             padding: 20px;
@@ -122,7 +65,6 @@
             align-items: center;
             justify-content: center;
         }
-        
         .filter-btn {
             padding: 12px 25px;
             border: 2px solid #007bff;
@@ -132,16 +74,11 @@
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            font-size: 0.95em;
         }
-        
         .filter-btn:hover, .filter-btn.active {
             background: #007bff;
             color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
         }
-        
         .search-box {
             flex: 1;
             min-width: 250px;
@@ -149,14 +86,8 @@
             border: 2px solid #ddd;
             border-radius: 25px;
             font-size: 1em;
-            transition: border-color 0.3s ease;
         }
-        
-        .search-box:focus {
-            outline: none;
-            border-color: #007bff;
-        }
-        
+        .search-box:focus { outline: none; border-color: #007bff; }
         .section-title {
             font-size: 1.8em;
             color: white;
@@ -166,16 +97,13 @@
             border-radius: 15px;
             text-align: center;
             font-weight: bold;
-            box-shadow: 0 8px 25px rgba(255, 149, 0, 0.3);
         }
-        
         .countries-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
         .country-card {
             background: white;
             padding: 30px;
@@ -184,22 +112,13 @@
             transition: all 0.3s ease;
             border: 2px solid transparent;
         }
-        
         .country-card:hover {
-            transform: translateY(-8px) scale(1.02);
+            transform: translateY(-8px);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
             border-color: #ff9500;
         }
-        
-        .country-card.hidden {
-            display: none;
-        }
-        
-        .flag {
-            font-size: 2.5em;
-            margin-right: 10px;
-        }
-        
+        .country-card.hidden { display: none; }
+        .flag { font-size: 2.5em; margin-right: 10px; }
         .country-name {
             font-size: 1.4em;
             font-weight: bold;
@@ -208,14 +127,7 @@
             display: flex;
             align-items: center;
         }
-        
-        .description {
-            margin: 15px 0;
-            color: #555;
-            font-size: 1em;
-            line-height: 1.6;
-        }
-        
+        .description { margin: 15px 0; color: #555; line-height: 1.6; }
         .shop-link {
             display: block;
             background: linear-gradient(45deg, #ff9500, #ffb84d);
@@ -225,17 +137,13 @@
             border-radius: 30px;
             font-weight: bold;
             margin: 15px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 149, 0, 0.3);
             text-align: center;
+            transition: all 0.3s ease;
         }
-        
         .shop-link:hover {
             background: linear-gradient(45deg, #e6860a, #ff9500);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 149, 0, 0.4);
         }
-        
         .disclaimer {
             font-style: italic;
             color: #999;
@@ -243,41 +151,24 @@
             margin-top: 15px;
             padding-top: 15px;
             border-top: 1px solid #eee;
-            line-height: 1.4;
         }
-        
-        .multilang {
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-        
+        .multilang { margin-bottom: 8px; }
         .btn-primary {
             background: #007bff;
             color: white;
             padding: 12px 30px;
             border: none;
             border-radius: 25px;
-            font-size: 1em;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
             margin: 8px;
         }
-        
-        .btn-primary:hover {
-            background: #0056b3;
-            transform: translateY(-2px);
-        }
-        
         footer {
             background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 15px;
             margin-top: 40px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
-        
         .no-results {
             text-align: center;
             padding: 60px 20px;
@@ -287,32 +178,10 @@
             display: none;
             margin: 20px 0;
         }
-        
-        .no-results.show {
-            display: block;
-        }
-        
-        .no-results-icon {
-            font-size: 4em;
-            margin-bottom: 20px;
-        }
-        
+        .no-results.show { display: block; }
         @media (max-width: 768px) {
-            h1 {
-                font-size: 1.8em;
-            }
-            
-            .countries-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .filter-bar {
-                flex-direction: column;
-            }
-            
-            .search-box {
-                width: 100%;
-            }
+            h1 { font-size: 1.8em; }
+            .countries-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -326,15 +195,15 @@
         
         <div class="install-prompt" id="installPrompt">
             <h3>📱 Installer Reussitess® Global</h3>
-            <p>Accédez instantanément à toutes nos boutiques, même hors ligne !</p>
-            <button class="btn-primary" id="installBtn">✨ Installer maintenant</button>
+            <p>Accédez instantanément à toutes nos boutiques !</p>
+            <button class="btn-primary" id="installBtn">✨ Installer</button>
             <button class="btn-primary" id="dismissBtn" style="background: transparent; border: 2px solid white;">Plus tard</button>
         </div>
         
         <div class="stats">
             <div class="stat-card">
-                <span class="stat-number">42</span>
-                <span class="stat-label">Boutiques Amazon</span>
+                <span class="stat-number">26</span>
+                <span class="stat-label">Boutiques</span>
             </div>
             <div class="stat-card">
                 <span class="stat-number">14</span>
@@ -349,83 +218,294 @@
         <div class="filter-bar">
             <input type="text" class="search-box" id="searchBox" placeholder="🔍 Rechercher un pays...">
             <button class="filter-btn active" data-filter="all">Tous</button>
-            <button class="filter-btn" data-filter="personal">Boutiques Personnelles</button>
-            <button class="filter-btn" data-filter="influencer">Influenceur fb942837</button>
+            <button class="filter-btn" data-filter="personal">Personnelles</button>
+            <button class="filter-btn" data-filter="influencer">Influenceur</button>
         </div>
         
         <div class="no-results" id="noResults">
-            <div class="no-results-icon">🔍</div>
-            <h3>Aucun résultat trouvé</h3>
-            <p>Essayez avec un autre pays ou réinitialisez les filtres</p>
+            <div style="font-size: 4em; margin-bottom: 20px;">🔍</div>
+            <h3>Aucun résultat</h3>
+            <p>Essayez avec un autre pays</p>
         </div>
         
         <main>
-            <h2 class="section-title">🛍️ Boutiques Personnelles Reussitess®</h2>
-            <div class="countries-grid" id="personalShops">
+            <h2 class="section-title">🛍️ Boutiques Personnelles</h2>
+            <div class="countries-grid">
                 <div class="country-card" data-category="personal" data-country="united states usa">
                     <h3 class="country-name"><span class="flag">🇺🇸</span>United States</h3>
                     <p class="description">Discover my curated Amazon shop with top products for the USA!</p>
-                    <a href="https://amzlink.to/az0LY0DXMG6dR" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Visit USA Shop</a>
+                    <a href="https://amzlink.to/az0LY0DXMG6dR" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit USA Shop</a>
                     <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
                 </div>
 
                 <div class="country-card" data-category="personal" data-country="france">
                     <h3 class="country-name"><span class="flag">🇫🇷</span>France</h3>
-                    <p class="description">Découvrez ma boutique Amazon avec une sélection spéciale pour la France !</p>
-                    <a href="https://amzlink.to/az0RLMqtXqC2d" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Visiter Boutique France</a>
-                    <p class="disclaimer">En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.</p>
+                    <p class="description">Découvrez ma boutique Amazon avec une sélection spéciale !</p>
+                    <a href="https://amzlink.to/az0RLMqtXqC2d" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visiter Boutique</a>
+                    <p class="disclaimer">En tant que Partenaire Amazon, je réalise un bénéfice sur les achats.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="italia italy italie">
+                <div class="country-card" data-category="personal" data-country="italia italy">
                     <h3 class="country-name"><span class="flag">🇮🇹</span>Italia</h3>
-                    <p class="description">Scopri il mio negozio Amazon con prodotti selezionati per l'Italia!</p>
-                    <a href="https://amzlink.to/az0tV67jW36S7" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Visita Negozio Italia</a>
-                    <p class="disclaimer">Come Affiliato Amazon, ricevo una commissione per acquisti idonei.</p>
+                    <p class="description">Scopri il mio negozio Amazon con prodotti selezionati!</p>
+                    <a href="https://amzlink.to/az0tV67jW36S7" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visita Negozio</a>
+                    <p class="disclaimer">Come Affiliato Amazon, ricevo una commissione.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="españa spain espagne">
+                <div class="country-card" data-category="personal" data-country="españa spain">
                     <h3 class="country-name"><span class="flag">🇪🇸</span>España</h3>
-                    <p class="description">¡Explora mi tienda Amazon con productos destacados para España!</p>
-                    <a href="https://amzlink.to/az085o25FtlRd" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Visitar Tienda España</a>
-                    <p class="disclaimer">Como Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
+                    <p class="description">¡Explora mi tienda Amazon con productos destacados!</p>
+                    <a href="https://amzlink.to/az085o25FtlRd" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visitar Tienda</a>
+                    <p class="disclaimer">Como Afiliado de Amazon, obtengo ingresos por las compras.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="deutschland germany allemagne">
+                <div class="country-card" data-category="personal" data-country="deutschland germany">
                     <h3 class="country-name"><span class="flag">🇩🇪</span>Deutschland</h3>
-                    <p class="description">Entdecken Sie meinen Amazon-Shop mit ausgewählten Produkten für Deutschland!</p>
-                    <a href="https://amzlink.to/az00VtRPRGpmm" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Deutschland Shop Besuchen</a>
+                    <p class="description">Entdecken Sie meinen Amazon-Shop mit ausgewählten Produkten!</p>
+                    <a href="https://amzlink.to/az00VtRPRGpmm" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Shop Besuchen</a>
                     <p class="disclaimer">Als Amazon-Partner verdiene ich an qualifizierten Käufen.</p>
                 </div>
 
                 <div class="country-card" data-category="personal" data-country="canada">
                     <h3 class="country-name"><span class="flag">🇨🇦</span>Canada</h3>
                     <p class="description">Explore my Amazon shop tailored for Canadian customers!</p>
-                    <a href="https://amzlink.to/az0MvN3FRKKQQ" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Visit Canada Shop</a>
+                    <a href="https://amzlink.to/az0MvN3FRKKQQ" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit Shop</a>
                     <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="india भारत inde">
+                <div class="country-card" data-category="personal" data-country="india">
                     <h3 class="country-name"><span class="flag">🇮🇳</span>भारत (India)</h3>
                     <p class="description">मेरी Amazon शॉप पर भारत के लिए विशेष उत्पाद देखें!</p>
-                    <a href="https://amzlink.to/az0GVe8b9O7cF" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 भारत शॉप देखें / Visit India Shop</a>
-                    <p class="disclaimer">एक Amazon Associate के रूप में, मैं योग्य खरीदारी से कमाता हूँ।<br>(As an Amazon Associate, I earn from qualifying purchases.)</p>
+                    <a href="https://amzlink.to/az0GVe8b9O7cF" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="nederland netherlands pays-bas">
+                <div class="country-card" data-category="personal" data-country="nederland netherlands">
                     <h3 class="country-name"><span class="flag">🇳🇱</span>Nederland</h3>
-                    <p class="description">Ontdek mijn Amazon-winkel met topselecties voor Nederland!</p>
-                    <a href="https://amzlink.to/az0G27sb8ZVbI" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Nederland Winkel Bezoeken</a>
-                    <p class="disclaimer">Als Amazon-partner verdien ik aan in aanmerking komende aankopen.</p>
+                    <p class="description">Ontdek mijn Amazon-winkel met topselecties!</p>
+                    <a href="https://amzlink.to/az0G27sb8ZVbI" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Winkel Bezoeken</a>
+                    <p class="disclaimer">Als Amazon-partner verdien ik aan aankopen.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="sverige sweden suède">
+                <div class="country-card" data-category="personal" data-country="sverige sweden">
                     <h3 class="country-name"><span class="flag">🇸🇪</span>Sverige</h3>
-                    <p class="description">Upptäck min Amazon-butik med utvalda produkter för Sverige!</p>
-                    <a href="https://amzlink.to/az0Ig0XgFkR8o" class="shop-link" target="_blank" rel="nofollow sponsored">🛒 Besök Sverige Butik</a>
-                    <p class="disclaimer">Som Amazon-partner tjänar jag på kvalificerade köp.</p>
+                    <p class="description">Upptäck min Amazon-butik med utvalda produkter!</p>
+                    <a href="https://amzlink.to/az0Ig0XgFkR8o" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Besök Butik</a>
+                    <p class="disclaimer">Som Amazon-partner tjänar jag på köp.</p>
                 </div>
 
-                <div class="country-card" data-category="personal" data-country="singapore singapour">
+                <div class="country-card" data-category="personal" data-country="singapore">
                     <h3 class="country-name"><span class="flag">🇸🇬</span>Singapore</h3>
                     <p class="description">Explore my curated Amazon shop for Singapore!</p>
-                    <a href="
+                    <a href="https://amzlink.to/az0b3TpUdq32r" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="personal" data-country="united kingdom uk">
+                    <h3 class="country-name"><span class="flag">🇬🇧</span>United Kingdom</h3>
+                    <p class="description">Check out my Amazon shop with special picks for the UK!</p>
+                    <a href="https://amzlink.to/az03r8CJgliMq" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="personal" data-country="australia">
+                    <h3 class="country-name"><span class="flag">🇦🇺</span>Australia</h3>
+                    <p class="description">Discover my Amazon store with great products!</p>
+                    <a href="https://amzlink.to/az05kTTrYJ06L" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visit Store</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="personal" data-country="belgië belgique belgium">
+                    <h3 class="country-name"><span class="flag">🇧🇪</span>België / Belgique</h3>
+                    <p class="description">
+                        <div class="multilang"><strong>NL:</strong> Ontdek mijn Amazon-winkel!</div>
+                        <div class="multilang"><strong>FR:</strong> Découvrez ma boutique Amazon !</div>
+                    </p>
+                    <a href="https://amzlink.to/az08ZB76xWpGm" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visiter Boutique</a>
+                    <p class="disclaimer">Als Amazon-partner verdien ik aan aankopen.</p>
+                </div>
+
+                <div class="country-card" data-category="personal" data-country="brasil brazil">
+                    <h3 class="country-name"><span class="flag">🇧🇷</span>Brasil</h3>
+                    <p class="description">Conheça minha loja na Amazon com produtos selecionados!</p>
+                    <a href="https://amzlink.to/az0ymmoCLHvyA" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">🛒 Visitar Loja</a>
+                    <p class="disclaimer">Como Associado da Amazon, recebo comissões.</p>
+                </div>
+            </div>
+
+            <h2 class="section-title">⭐ Influenceur fb942837</h2>
+            <div class="countries-grid">
+                <div class="country-card" data-category="influencer" data-country="united states usa">
+                    <h3 class="country-name"><span class="flag">🇺🇸</span>United States</h3>
+                    <p class="description">Explore the shop by influencer fb942837 for the USA!</p>
+                    <a href="https://amzlink.to/az0G6w0uuYRlg" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from qualifying purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="italia italy">
+                    <h3 class="country-name"><span class="flag">🇮🇹</span>Italia</h3>
+                    <p class="description">Scopri il negozio dell'influencer fb942837!</p>
+                    <a href="https://amzlink.to/az0yC7BiDQmPg" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visita Negozio</a>
+                    <p class="disclaimer">Come Affiliato Amazon, ricevo una commissione.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="españa spain">
+                    <h3 class="country-name"><span class="flag">🇪🇸</span>España</h3>
+                    <p class="description">¡Explora la tienda del influencer fb942837!</p>
+                    <a href="https://amzlink.to/az0DKsP6Zr5IL" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visitar Tienda</a>
+                    <p class="disclaimer">Como Afiliado de Amazon, obtengo ingresos.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="deutschland germany">
+                    <h3 class="country-name"><span class="flag">🇩🇪</span>Deutschland</h3>
+                    <p class="description">Entdecken Sie den Shop des Influencers fb942837!</p>
+                    <a href="https://amzlink.to/az0PuGdrA0kgh" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Shop Besuchen</a>
+                    <p class="disclaimer">Als Amazon-Partner verdiene ich an Käufen.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="canada">
+                    <h3 class="country-name"><span class="flag">🇨🇦</span>Canada</h3>
+                    <p class="description">Explore influencer fb942837's shop for Canada!</p>
+                    <a href="https://amzlink.to/az0YFa3j2fsnv" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="india">
+                    <h3 class="country-name"><span class="flag">🇮🇳</span>भारत (India)</h3>
+                    <p class="description">इन्फ्लुएंसर fb942837 की शॉप देखें!</p>
+                    <a href="https://amzlink.to/az0Qry9pNlCkw" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="nederland netherlands">
+                    <h3 class="country-name"><span class="flag">🇳🇱</span>Nederland</h3>
+                    <p class="description">Ontdek de winkel van influencer fb942837!</p>
+                    <a href="https://amzlink.to/az0v9jdbSf7Km" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Winkel Bezoeken</a>
+                    <p class="disclaimer">Als Amazon-partner verdien ik aan aankopen.</p>
+                </div>
+                
+                <div class="country-card" data-category="influencer" data-country="sverige sweden">
+                    <h3 class="country-name"><span class="flag">🇸🇪</span>Sverige</h3>
+                    <p class="description">Upptäck influencer fb942837:s butik!</p>
+                    <a href="https://amzlink.to/az0Q5qEXfyqk5" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Besök Butik</a>
+                    <p class="disclaimer">Som Amazon-partner tjänar jag på köp.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="singapore">
+                    <h3 class="country-name"><span class="flag">🇸🇬</span>Singapore</h3>
+                    <p class="description">Explore influencer fb942837's shop for Singapore!</p>
+                    <a href="https://amzlink.to/az05gMuq73i99" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="united kingdom uk">
+                    <h3 class="country-name"><span class="flag">🇬🇧</span>United Kingdom</h3>
+                    <p class="description">Check out influencer fb942837's shop for the UK!</p>
+                    <a href="https://amzlink.to/az0VutIAPP8MY" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="australia">
+                    <h3 class="country-name"><span class="flag">🇦🇺</span>Australia</h3>
+                    <p class="description">Discover influencer fb942837's shop for Australia!</p>
+                    <a href="https://amzlink.to/az0on91nKaQvh" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visit Shop</a>
+                    <p class="disclaimer">As an Amazon Associate, I earn from purchases.</p>
+                </div>
+
+                <div class="country-card" data-category="influencer" data-country="belgië belgique belgium">
+                    <h3 class="country-name"><span class="flag">🇧🇪</span>België / Belgique</h3>
+                    <p class="description">
+                        <div class="multilang"><strong>NL:</strong> Ontdek influencer fb942837's winkel!</div>
+                        <div class="multilang"><strong>FR:</strong> Découvrez la boutique fb942837 !</div>
+                    </p>
+                    <a href="https://amzlink.to/az08ZB76xWpGm" class="shop-link" target="_blank" rel="nofollow sponsored noopener noreferrer">⭐ Visiter Boutique</a>
+                    <p class="disclaimer">Als Amazon-partner verdien ik aan aankopen.</p>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p><strong>Reussitess® Global</strong></p>
+            <p style="color: #666; margin-top: 10px;">© 2024 Tous droits réservés</p>
+            <p style="margin-top: 10px;" id="onlineStatus">🟢 En ligne</p>
+        </footer>
+    </div>
+
+    <script>
+        let deferredPrompt;
+        
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // Assurez-vous que le fichier service-worker.js existe à la racine ou dans /public
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(reg => console.log('✅ SW enregistré'))
+                    .catch(err => console.log('❌ Échec SW:', err));
+            });
+        }
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installPrompt').classList.add('show');
+        });
+        
+        document.getElementById('installBtn').addEventListener('click', async () => {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            document.getElementById('installPrompt').classList.remove('show');
+        });
+        
+        document.getElementById('dismissBtn').addEventListener('click', () => {
+            document.getElementById('installPrompt').classList.remove('show');
+        });
+        
+        function updateOnlineStatus() {
+            const el = document.getElementById('onlineStatus');
+            el.innerHTML = navigator.onLine ? '🟢 En ligne' : '🔴 Hors ligne';
+        }
+        
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        const searchBox = document.getElementById('searchBox');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.country-card');
+        const noResults = document.getElementById('noResults');
+        
+        function filterCards() {
+            const searchTerm = searchBox.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            let visibleCount = 0;
+            
+            cards.forEach(card => {
+                const country = card.dataset.country;
+                const category = card.dataset.category;
+                
+                const matchesSearch = country.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || category === activeFilter;
+                
+                if (matchesSearch && matchesFilter) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            noResults.classList.toggle('show', visibleCount === 0);
+        }
+        
+        searchBox.addEventListener('input', filterCards);
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterCards();
+            });
+        });
+    </script>
+</body>
+</html>
