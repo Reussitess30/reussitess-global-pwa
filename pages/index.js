@@ -1,3 +1,11 @@
+
+
+
+
+import { useRouter } from 'next/router';
+// ...
+// À l'intérieur du composant fonctionnel (ex: export default function Home() { ... })
+const router = useRouter(); 
 import React from 'react';
 
 const HomePage = () => {
@@ -270,4 +278,16 @@ if (error) {
 } else {
     // Redirige l'utilisateur vers la page de profil après connexion/inscription réussie
     router.push('/profile'); 
+}
+// ... Votre fonction de gestion de l'authentification
+const { user, error } = estInscription
+    ? await supabase.auth.signUp({ email, password })
+    : await supabase.auth.signIn({ email, password });
+
+if (error) {
+    alert(error.message); // Affiche l'erreur si elle existe
+} else {
+    // === LIGNE CRUCIALE À AJOUTER ===
+    router.push('/profile'); 
+    // ================================
 }
