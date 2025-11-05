@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Recherche | Reussitess®</title>
+    <meta name="description" content="Recherchez des produits Amazon par catégorie ou mot-clé.">
+    
+    <link rel="manifest" href="./manifest.json">
+    <link rel="theme-color" content="#007bff">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ff9900;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        #searchInput {
+            flex-grow: 1;
+            padding: 12px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+        #searchButton {
+            background-color: #ff9900;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        #searchButton:hover {
+            background-color: #e68a00;
+        }
+        .category-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .category-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0 5px;
+            text-decoration: none;
+        }
+        .category-btn:hover {
+            background-color: #0056b3;
+        }
+        #results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .loading {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 1.2em;
+            color: #555;
+            display: none;
+        }
+        /* Style pour afficher le pays sélectionné */
+        #country-display {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="country-display">Chargement...</div>
+
+        <h1>Recherche de Produits Amazon</h1>
+
+        <div class="search-section">
+            <input type="text" id="searchInput" placeholder="Rechercher des produits sur Amazon...">
+            <button id="searchButton">Rechercher</button>
+        </div>
+
+        <div class="category-buttons">
+            <button class="category-btn" data-category="mode">👗 Mode & Accessoires</button>
+            <button class="category-btn" data-category="beaute">💄 Beauté & Soins</button>
+            <button class="category-btn" data-category="maison">🏠 Maison & Cuisine</button>
+        </div>
+
+        <div class="loading" id="loading">Chargement des produits recommandés...</div>
+
+        <div id="results">
+            </div>
+    </div>
+
+    <script>
+        const countryDisplay = document.getElementById('country-display');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+
+        // Mapping des codes pays aux noms/drapeaux (Simplifié)
+        const countryMap = {
+            'FR': '🇫🇷 France',
+            'IT': '🇮🇹 Italie',
+            'US': '🇺🇸 États-Unis',
+            'DE': '🇩🇪 Allemagne',
+            'UK': '🇬🇧 Royaume-Uni',
+            'ES': '🇪🇸 Espagne',
+            'JP': '🇯🇵 Japon',
+            'CA': '🇨🇦 Canada',
+            'AU': '🇦🇺 Australie',
+            'BR': '🇧🇷 Brésil',
+            'MX': '🇲🇽 Mexique',
+            'IN': '🇮🇳 Inde',
+            'SG': '🇸🇬 Singapour',
+            'AE': '🇦🇪 Émirats'
+        };
+
+        // 1. Récupération du pays depuis l'URL (via la redirection)
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const selectedCountryCode = getQueryParam('country');
+        
+        // Affichage du pays
+        if (selectedCountryCode && countryMap[selectedCountryCode]) {
+            countryDisplay.textContent = `Sélection Amazon pour ${countryMap[selectedCountryCode]}`;
+        } else {
+            countryDisplay.textContent = "Sélection Amazon (Pays non spécifié)";
+        }
+
+
+        // 2. Logique de Recherche (Simulée pour l'instant)
+
+        function showLoading() {
+            loading.style.display = 'block';
+            results.innerHTML = '';
+        }
+
+        function hideLoading() {
+            loading.style.display = 'none';
+        }
+
+        function simulateSearch(query) {
+            showLoading();
+            
+            // Simuler l'appel API (qui se ferait ici en réalité)
+            setTimeout(() => {
+                hideLoading();
+                
+                let htmlResults = '';
+                
+                if (query === 'mode') {
+                    htmlResults = `<div class="product-card">Produit Mode 1</div>
+                                   <div class="product-card">Produit
+x
