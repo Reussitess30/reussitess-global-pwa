@@ -242,19 +242,3 @@ export default async function handler(req, res) {
         });
     }
 }
-    ```
-
----
-
-## 💾 Procédure de Sauvegarde
-
-1.  **Sauvegardez :** Appuyez sur `Ctrl+X`.
-2.  **Confirmez :** Tapez `O` (pour Oui).
-3.  **Finalisez :** Appuyez sur `Entrée`.
-
-**Maintenant que vous avez corrigé `vercel.json` et confirmé le contenu de `api/amazon.js`, vous pouvez effectuer le dernier déploiement :**
-
-```bash
-git add .
-git commit -m "fix: Final syntax and content check before redeployment"
-git push origin master

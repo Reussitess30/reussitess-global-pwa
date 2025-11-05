@@ -365,7 +365,8 @@
             showLoading();
             
             try {
-                const response = await fetch('/api/amazon', {
+                // APPEL API CORRIGÉ: /api/search
+                const response = await fetch('/api/search', { 
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -398,7 +399,8 @@
             showLoading();
             
             try {
-                const response = await fetch('/api/amazon', {
+                // APPEL API CORRIGÉ: /api/search
+                const response = await fetch('/api/search', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
