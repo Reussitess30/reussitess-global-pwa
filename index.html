@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Reussitess® Global - Accédez à nos 26 boutiques Amazon dans 14 pays. Excellence, Innovation, Succès.">
+    <meta name="description" content="Reussitess® Global Nexus - Accédez à nos 26 boutiques Amazon dans 14 pays. Excellence, Innovation, Succès.">
     <meta name="theme-color" content="#007bff">
     <link rel="manifest" href="./manifest.json">
-    <title>Reussitess® Global</title>
+    <title>Reussitess® Global Nexus</title>
     
     <script type="module" src="./config.js"></script> 
     
@@ -27,7 +27,18 @@
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
             text-align: center;
         }
-        h1 { color: #007bff; font-size: 2.5em; margin-bottom: 10px; }
+        /* Style pour centrer le logo et le texte */
+        h1 { 
+            color: #007bff; 
+            font-size: 2.5em; 
+            margin-bottom: 10px; 
+            /* Styles ajoutés pour le logo */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 10px;
+        }
+
         .subtitle { color: #666; font-size: 1.2em; margin-top: 10px; }
         .install-prompt {
             background: linear-gradient(135deg, #ff9500, #ffb84d);
@@ -191,13 +202,18 @@
 <body>
     <div class="container">
         <header>
-            <h1>🏆 Reussitess® Global</h1>
+            <h1 style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                🏆 <img src="./IMG-20251104-WA0065%281%29%20%281%29.jpg" alt="Reussitess Global Nexus Logo" style="height: 40px; width: auto;"> 
+                
+                Reussitess® Global Nexus
+                
+                🏆 </h1>
             <p class="subtitle">🌍 Excellence • Innovation • Succès</p>
             <p class="subtitle" style="margin-top: 10px; font-size: 1em;">26 Boutiques Amazon • 14 Pays</p>
         </header>
         
         <div class="install-prompt" id="installPrompt">
-            <h3>📱 Installer Reussitess® Global</h3>
+            <h3>📱 Installer Reussitess® Global Nexus</h3>
             <p>Accédez instantanément à toutes nos boutiques !</p>
             <button class="btn-primary" id="installBtn">✨ Installer</button>
             <button class="btn-primary" id="dismissBtn" style="background: transparent; border: 2px solid white;">Plus tard</button>
@@ -279,8 +295,8 @@
         </main>
         
         <footer>
-            <p><strong>Reussitess® Global</strong></p>
-            <p style="color: #666; margin-top: 10px;">© 2024 Tous droits réservés</p>
+            <p><strong>🏆 Reussitess® Global Nexus 🏆</strong></p> 
+            <p style="color: #666; margin-top: 10px;">© 2024 Tous droits réservés - Reussitess® Global Nexus</p> 
             <p style="margin-top: 10px;" id="onlineStatus">🟢 En ligne</p>
         </footer>
     </div>
