@@ -144,4 +144,117 @@ function parseAmazonResults(data) {
         if (item.CustomerReviews?.StarRating?.Value) {
             const stars = '⭐'.repeat(Math.round(item.CustomerReviews.StarRating.Value));
             const count = item.CustomerReviews.Count || 0;
-            product.rating = `${stars}
+            product.rating = `${stars} (${count} avis)`;
+        }
+        
+        return product;
+    });
+}
+
+// ============================================
+// HANDLER PRINCIPAL VERCEL
+// ============================================
+
+export default async function handler(req, res) {
+    // CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+    
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Méthode non autorisée' });
+    }
+    
+    // Vérification des variables d'environnement
+    if (!config.accessKey || !config.secretKey || !config.partnerTag) {
+        return res.status(500).json({ 
+            error: 'Configuration API manquante. Vérifiez vos variables d\'environnement dans Vercel.',
+            details: {
+                hasAccessKey: !!config.accessKey,
+                hasSecretKey: !!config.secretKey,
+                hasPartnerTag: !!config.partnerTag
+            }
+        });
+    }
+    
+    try {
+        const { action, keywords, searchIndex } = req.body;
+        
+        // Payload de base pour l'API Amazon
+        let payload = {
+            PartnerTag: config.partnerTag,
+            PartnerType: 'Associates',
+            Marketplace: config.marketplace,
+            Resources: [
+                'Images.Primary.Large',
+                'Images.Primary.Medium',
+                'ItemInfo.Title',
+                'Offers.Listings.Price',
+                'Offers.Listings.DeliveryInfo.IsPrimeEligible',
+                'CustomerReviews.StarRating',
+                'CustomerReviews.Count'
+            ],
+            ItemCount: 12
+        };
+        
+        // Action : Recherche par mots-clés
+        if (action === 'search' && keywords) {
+            payload.Keywords = keywords;
+        } 
+        // Action : Recherche par catégorie
+        else if (action === 'category' && searchIndex) {
+            payload.SearchIndex = searchIndex;
+            payload.SortBy = 'Relevance';
+        } 
+        else {
+            return res.status(400).json({ error: 'Paramètres invalides' });
+        }
+        
+        // Appel API Amazon
+        const data = await callAmazonAPI('SearchItems', payload);
+        
+        // Gestion des erreurs API Amazon
+        if (data.Errors) {
+            console.error('Erreur API Amazon:', data.Errors);
+            return res.status(400).json({ 
+                error: 'Erreur Amazon API: ' + (data.Errors[0]?.Message || 'Erreur inconnue')
+            });
+        }
+        
+        // Parser et renvoyer les produits
+        const products = parseAmazonResults(data);
+        
+        return res.status(200).json({ 
+            success: true,
+            products: products,
+            count: products.length
+        });
+        
+    } catch (error) {
+        console.error('Erreur serveur:', error);
+        return res.status(500).json({ 
+            error: 'Erreur lors de la récupération des produits',
+            details: error.message 
+        });
+    }
+}
+    ```
+
+---
+
+## 💾 Procédure de Sauvegarde
+
+1.  **Sauvegardez :** Appuyez sur `Ctrl+X`.
+2.  **Confirmez :** Tapez `O` (pour Oui).
+3.  **Finalisez :** Appuyez sur `Entrée`.
+
+**Maintenant que vous avez corrigé `vercel.json` et confirmé le contenu de `api/amazon.js`, vous pouvez effectuer le dernier déploiement :**
+
+```bash
+git add .
+git commit -m "fix: Final syntax and content check before redeployment"
+git push origin master
