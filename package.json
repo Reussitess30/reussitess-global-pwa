@@ -1,0 +1,12 @@
+{
+  "name": "amazon-affiliation-site",
+  "version": "1.0.0",
+  "description": "Site d'affiliation Amazon avec API Product Advertising",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

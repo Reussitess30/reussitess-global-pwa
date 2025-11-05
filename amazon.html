@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon France - Mode, Beauté, Maison</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛍️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 3em;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.3em;
+            font-weight: 300;
+        }
+        
+        .search-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 18px 25px;
+            border: 3px solid #fff;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-search {
+            padding: 18px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-search:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .categories {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .cat-btn {
+            padding: 15px 35px;
+            background: white;
+            color: #667eea;
+            border: 3px solid #667eea;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cat-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cat-btn.active {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 20px;
+            color: #667eea;
+            display: none;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background: linear-gradient(135deg, #fee 0%, #fcc 100%);
+            border: 3px solid #f99;
+            color: #c33;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            display: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+        
+        .product-image-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: #f8f9fa;
+            overflow: hidden;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 25px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 48px;
+            line-height: 1.5;
+        }
+        
+        .product-rating {
+            color: #ff9900;
+            font-size: 14px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+        
+        .product-price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #667eea;
+            margin-bottom: 18px;
+        }
+        
+        .product-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #ff9900 0%, #ff7700 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+        }
+        
+        .product-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+        }
+        
+        .prime-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #00a8e1 0%, #0077cc 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 8px rgba(0, 168, 225, 0.3);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 2px solid #eee;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .btn-search {
+                width: 100%;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛍️ Amazon France</h1>
+            <p class="subtitle">Mode • Beauté • Maison - Les meilleures offres</p>
+        </header>
+        
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Rechercher un produit sur Amazon.fr..." />
+                <button class="btn-search" onclick="searchProducts()">🔍 Rechercher</button>
+            </div>
+            
+            <div class="categories">
+                <button class="cat-btn" onclick="loadCategory('Fashion')">👗 Mode & Accessoires</button>
+                <button class="cat-btn" onclick="loadCategory('Beauty')">💄 Beauté & Soins</button>
+                <button class="cat-btn" onclick="loadCategory('HomeAndKitchen')">🏡 Maison & Cuisine</button>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Chargement des produits Amazon...
+        </div>
+        
+        <div class="error" id="error"></div>
+        
+        <div class="products-grid" id="productsGrid"></div>
+        
+        <footer>
+            <p>💰 Commission maximale avec les catégories les plus rentables</p>
+            <p style="margin-top: 10px; font-size: 12px;">En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises.</p>
+        </footer>
+    </div>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('productsGrid').innerHTML = '';
+        }
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.innerHTML = '❌ ' + message;
+            errorDiv.style.display = 'block';
+            hideLoading();
+        }
+        
+        async function searchProducts() {
+            const query = document.getElementById('searchInput').value.trim();
+            if (!query) {
+                showError('Veuillez entrer un terme de recherche');
+                return;
+            }
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/amazon', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'search',
+                        keywords: query
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+                
+                displayProducts(data.products);
+            } catch (error) {
+                showError('Erreur de connexion à l\'API Amazon. Vérifiez vos identifiants.');
+                console.error('Erreur:', error);
+            }
+        }
+        
+        async function loadCategory(category) {
+            const buttons = document.querySelectorAll('.cat-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            showLoading();
+            
+            try {
+                const response = await fetch('/api/amazon', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        action: 'category',
+                        searchIndex: category
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+                
+                displayProducts(data.products);
+            } catch (error) {
+                showError('Erreur de connexion à l\'API Amazon. Vérifiez vos identifiants.');
+                console.error('Erreur:', error);
+            }
+        }
+        
+        function displayProducts(products) {
+            hideLoading();
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            if (!products || products.length === 0) {
+                showError('Aucun produit trouvé pour cette recherche');
+                return;
+            }
+            
+            products.forEach(product => {
+                const card = createProductCard(product);
+                grid.appendChild(card);
+            });
+        }
+        
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.onclick = () => window.open(product.url, '_blank');
+            
+            card.innerHTML = `
+                <div class="product-image-container">
+                    <img src="${product.image}" 
+                         alt="${product.title}" 
+                         class="product-image" 
+                         onerror="this.src='https://via.placeholder.com/300x300?text=Produit+Amazon'" />
+                </div>
+                <div class="product-info">
+                    ${product.isPrime ? '<span class="prime-badge">✓ Prime</span>' : ''}
+                    <div class="product-title">${product.title}</div>
+                    ${product.rating ? `<div class="product-rating">${product.rating}</div>` : ''}
+                    <div class="product-price">${product.price}</div>
+                    <button class="product-btn">🛒 Voir sur Amazon</button>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Gestion de la touche Entrée
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+        
+        // Message de bienvenue dans la console
+        console.log('%c🚀 Site Amazon Affiliation', 'font-size: 20px; font-weight: bold; color: #667eea;');
+        console.log('%c💰 Catégories optimisées pour commission maximale', 'font-size: 14px; color: #666;');
+    </script>
+</body>
+</html>
