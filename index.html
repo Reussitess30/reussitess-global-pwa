@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reussitess® Global Nexus | 26 Boutiques Amazon</title>
+    
+    <!-- 1. Chargement de Tailwind CSS pour le style -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Chargement des bibliothèques React, ReactDOM et Babel (pour le JSX) -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Police Inter pour l'esthétique -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Styles de base pour assurer la réactivité et la police */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- Le conteneur où l'application React sera injectée -->
+    <div id="root"></div>
+
+    <!-- 3. Votre code React (JSX) doit être placé dans un script de type 'text/babel' -->
+    <script type="text/babel">
+        // Importation des icônes (simulée via la décomposition d'objets globaux ici)
+        const { useState } = React;
+        // Ces icônes de 'lucide-react' sont simulées par des composants SVG/JSX
+        const Search = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>;
+        const Globe = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>;
+        const Star = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>;
+        const ShoppingBag = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>;
+        const Menu = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="6" x2="20" y2="6"></line><line x1="4" y1="18" x2="20" y2="18"></line></svg>;
+        const X = (props) => <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
+
+
+        const App = () => {
+          const [searchTerm, setSearchTerm] = useState('');
+          const [selectedCategory, setSelectedCategory] = useState('all');
+          const [menuOpen, setMenuOpen] = useState(false);
+
+          const shops = {
+            personal: [
+              { country: '🇺🇸 United States', desc: 'Discover my curated Amazon shop with top products for the USA!', link: 'https://amzlink.to/az0LY0DXMG6dR', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇫🇷 France', desc: 'Découvrez ma boutique Amazon avec une sélection spéciale !', link: 'https://amzlink.to/az0RLMqtXqC2d', disclaimer: 'En tant que Partenaire Amazon, je réalise un bénéfice sur les achats.' },
+              { country: '🇮🇹 Italia', desc: 'Scopri il mio negozio Amazon con prodotti selezionati!', link: 'https://amzlink.to/az0tV67jW36S7', disclaimer: 'Come Affiliato Amazon, ricevo una commissione.' },
+              { country: '🇪🇸 España', desc: '¡Explora mi tienda Amazon con productos destacados!', link: 'https://amzlink.to/az085o25FtlRd', disclaimer: 'Como Afiliado de Amazon, obtengo ingresos por las compras.' },
+              { country: '🇩🇪 Deutschland', desc: 'Entdecken Sie meinen Amazon-Shop mit ausgewählten Produkten!', link: 'https://amzlink.to/az00VtRPRGpmm', disclaimer: 'Als Amazon-Partner verdiene ich an qualifizierten Käufen.' },
+              { country: '🇨🇦 Canada', desc: 'Explore my Amazon shop tailored for Canadian customers!', link: 'https://amzlink.to/az0MvN3FRKKQQ', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇮🇳 भारत (India)', desc: 'मेरी Amazon शॉप पर भारत के लिए विशेष उत्पाद देखें!', link: 'https://amzlink.to/az0GVe8b9O7cF', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇳🇱 Nederland', desc: 'Ontdek mijn Amazon-winkel met topselecties!', link: 'https://amzlink.to/az0G27sb8ZVbI', disclaimer: 'Als Amazon-partner verdien ik aan aankopen.' },
+              { country: '🇸🇪 Sverige', desc: 'Upptäck min Amazon-butik med utvalda produkter!', link: 'https://amzlink.to/az0Ig0XgFkR8o', disclaimer: 'Som Amazon-partner tjänar jag på köp.' },
+              { country: '🇸🇬 Singapore', desc: 'Explore my curated Amazon shop for Singapore!', link: 'https://amzlink.to/az0b3TpUdq32r', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇬🇧 United Kingdom', desc: 'Check out my Amazon shop with special picks for the UK!', link: 'https://amzlink.to/az03r8CJgliMq', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇦🇺 Australia', desc: 'Discover my Amazon store with great products!', link: 'https://amzlink.to/az05kTTrYJ06L', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇧🇪 België / Belgique', desc: 'Ontdek mijn Amazon-winkel met geselecteerde producten!', link: 'https://amzlink.to/az08ZB76xWpGm', disclaimer: 'Als Amazon-partner verdien ik aan aankopen.' },
+              { country: '🇧🇷 Brasil', desc: 'Conheça minha loja na Amazon com produtos selecionados!', link: 'https://amzlink.to/az0ymmoCLHvyA', disclaimer: 'Como Associado da Amazon, recebo comissões.' }
+            ],
+            influencer: [
+              { country: '🇺🇸 United States', desc: 'Explore the shop by influencer fb942837 for the USA!', link: 'https://amzlink.to/az0G6w0uuYRlg', disclaimer: 'As an Amazon Associate, I earn from qualifying purchases.' },
+              { country: '🇮🇹 Italia', desc: 'Scopri il negozio dell\'influencer fb942837!', link: 'https://amzlink.to/az0yC7BiDQmPg', disclaimer: 'Come Affiliato Amazon, ricevo una commissione.' },
+              { country: '🇪🇸 España', desc: '¡Explora la tienda del influencer fb942837!', link: 'https://amzlink.to/az0DKsP6Zr5IL', disclaimer: 'Como Afiliado de Amazon, obtengo ingresos.' },
+              { country: '🇩🇪 Deutschland', desc: 'Entdecken Sie den Shop des Influencers fb942837!', link: 'https://amzlink.to/az0PuGdrA0kgh', disclaimer: 'Als Amazon-Partner verdiene ich an Käufen.' },
+              { country: '🇨🇦 Canada', desc: 'Explore influencer fb942837\'s shop for Canada!', link: 'https://amzlink.to/az0YFa3j2fsnv', disclaimer: 'As an Amazon Associate, I earn from purchases.' },
+              { country: '🇮🇳 भारत (India)', desc: 'इन्फ्लुएंसर fb942837 की शॉप देखें!', link: 'https://amzlink.to/az0Qry9pNlCkw', disclaimer: 'As an Amazon Associate, I earn from purchases.' },
+              { country: '🇳🇱 Nederland', desc: 'Ontdek de winkel van influencer fb942837!', link: 'https://amzlink.to/az0v9jdbSf7Km', disclaimer: 'Als Amazon-partner verdien ik aan aankopen.' },
+              { country: '🇸🇪 Sverige', desc: 'Upptäck influencer fb942837:s butik!', link: 'https://amzlink.to/az0Q5qEXfyqk5', disclaimer: 'Som Amazon-partner tjänar jag på köp.' },
+              { country: '🇸🇬 Singapore', desc: 'Explore influencer fb942837\'s shop for Singapore!', link: 'https://amzlink.to/az05gMuq73i99', disclaimer: 'As an Amazon Associate, I earn from purchases.' },
+              { country: '🇬🇧 United Kingdom', desc: 'Check out influencer fb942837\'s shop for the UK!', link: 'https://amzlink.to/az0VutIAPP8MY', disclaimer: 'As an Amazon Associate, I earn from purchases.' },
+              { country: '🇦🇺 Australia', desc: 'Discover influencer fb942837\'s shop for Australia!', link: 'https://amzlink.to/az0on91nKaQvh', disclaimer: 'As an Amazon Associate, I earn from purchases.' },
+              { country: '🇧🇪 België / Belgique', desc: 'Ontdek de winkel van influencer fb942837!', link: 'https://amzlink.to/az08ZB76xWpGm', disclaimer: 'En tant que Partenaire Amazon, je réalise un bénéfice sur les achats.' }
+            ]
+          };
+
+          const allShops = [
+            ...shops.personal.map(s => ({ ...s, category: 'personal' })),
+            ...shops.influencer.map(s => ({ ...s, category: 'influencer' }))
+          ];
+
+          const filteredShops = allShops.filter(shop => {
+            const matchesSearch = shop.country.toLowerCase().includes(searchTerm.toLowerCase());
+            const matchesCategory = selectedCategory === 'all' || shop.category === selectedCategory;
+            return matchesSearch && matchesCategory;
+          });
+
+          const totalShops = allShops.length;
+
+          return (
+            <div className="min-h-screen bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700">
+              {/* Header */}
+              <header className="bg-white/10 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Globe className="w-8 h-8 text-yellow-300" />
+                      <div>
+                        <h1 className="text-2xl font-bold text-white">Reussitess® Global Nexus</h1>
+                        <p className="text-sm text-purple-200">Mes {totalShops} boutiques dans le monde</p>
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => setMenuOpen(!menuOpen)}
+                      className="md:hidden text-white"
+                      aria-label="Toggle menu"
+                    >
+                      {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    </button>
+                  </div>
+                </div>
+              </header>
+
+              {/* Mobile Menu */}
+              {menuOpen && (
+                <div className="md:hidden bg-white/10 backdrop-blur-lg border-b border-white/20">
+                  <div className="px-4 py-4 space-y-2">
+                    <button
+                      onClick={() => { setSelectedCategory('all'); setMenuOpen(false); }}
+                      className={`w-full text-left px-4 py-2 rounded-lg ${selectedCategory === 'all' ? 'bg-white/20 text-white' : 'text-purple-200'}`}
+                    >
+                      Toutes ({totalShops})
+                    </button>
+                    <button
+                      onClick={() => { setSelectedCategory('personal'); setMenuOpen(false); }}
+                      className={`w-full text-left px-4 py-2 rounded-lg ${selectedCategory === 'personal' ? 'bg-white/20 text-white' : 'text-purple-200'}`}
+                    >
+                      Boutiques Personnelles ({shops.personal.length})
+                    </button>
+                    <button
+                      onClick={() => { setSelectedCategory('influencer'); setMenuOpen(false); }}
+                      className={`w-full text-left px-4 py-2 rounded-lg ${selectedCategory === 'influencer' ? 'bg-white/20 text-white' : 'text-purple-200'}`}
+                    >
+                      Influenceur fb942837 ({shops.influencer.length})
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Search and Filters */}
+                <div className="mb-8 space-y-4">
+                  <div className="relative">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-purple-300 w-5 h-5" />
+                    <input
+                      type="text"
+                      placeholder="Rechercher un pays..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="w-full pl-12 pr-4 py-3 rounded-xl bg-white/10 backdrop-blur-lg border border-white/20 text-white placeholder-purple-200 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                    />
+                  </div>
+
+                  <div className="hidden md:flex gap-4">
+                    <button
+                      onClick={() => setSelectedCategory('all')}
+                      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        selectedCategory === 'all'
+                          ? 'bg-white text-purple-600 shadow-lg'
+                          : 'bg-white/10 text-white hover:bg-white/20'
+                      }`}
+                    >
+                      <Globe className="w-5 h-5" />
+                      Toutes ({totalShops})
+                    </button>
+                    <button
+                      onClick={() => setSelectedCategory('personal')}
+                      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        selectedCategory === 'personal'
+                          ? 'bg-white text-purple-600 shadow-lg'
+                          : 'bg-white/10 text-white hover:bg-white/20'
+                      }`}
+                    >
+                      <ShoppingBag className="w-5 h-5" />
+                      Personnelles ({shops.personal.length})
+                    </button>
+                    <button
+                      onClick={() => setSelectedCategory('influencer')}
+                      className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                        selectedCategory === 'influencer'
+                          ? 'bg-white text-purple-600 shadow-lg'
+                          : 'bg-white/10 text-white hover:bg-white/20'
+                      }`}
+                    >
+                      <Star className="w-5 h-5" />
+                      Influenceur ({shops.influencer.length})
+                    </button>
+                  </div>
+                </div>
+
+                {/* Results Count */}
+                <p className="text-purple-200 mb-4">
+                  {filteredShops.length} boutique{filteredShops.length > 1 ? 's' : ''} trouvée{filteredShops.length > 1 ? 's' : ''}
+                </p>
+
+                {/* Shop Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredShops.map((shop, index) => (
+                    <div
+                      key={index}
+                      className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/20 hover:scale-105 transition-all duration-300 shadow-xl"
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <h3 className="text-xl font-bold text-white">{shop.country}</h3>
+                        {shop.category === 'influencer' && (
+                          <Star className="w-5 h-5 text-yellow-300 fill-yellow-300" />
+                        )}
+                      </div>
+                      <p className="text-purple-100 mb-4 text-sm leading-relaxed">{shop.desc}</p>
+                      <a
+                        href={shop.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-purple-900 font-bold px-6 py-3 rounded-xl hover:from-yellow-300 hover:to-orange-300 transition-all shadow-lg hover:shadow-xl"
+                      >
+                        <ShoppingBag className="w-5 h-5" />
+                        Visiter
+                      </a>
+                      <p className="text-xs text-purple-200 mt-4 italic">{shop.disclaimer}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {filteredShops.length === 0 && (
+                  <div className="text-center py-12">
+                    <Globe className="w-16 h-16 text-purple-300 mx-auto mb-4" />
+                    <p className="text-white text-xl">Aucune boutique trouvée</p>
+                    <p className="text-purple-200">Essayez une autre recherche</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Footer */}
+              <footer className="bg-white/5 backdrop-blur-lg border-t border-white/20 mt-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                  <div className="text-center">
+                    <h2 className="text-2xl font-bold text-white mb-2">🏆 Reussitess® Global Nexus 🏆</h2>
+                    <p className="text-purple-200">Connectant le monde à travers {totalShops} boutiques Amazon</p>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          );
+        };
+
+        // 4. Initialisation de l'application React
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
