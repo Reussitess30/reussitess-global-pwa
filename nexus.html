@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Reussitess® Global Nexus - Hub Central pour 42 boutiques dans 14 pays">
+    <meta name="theme-color" content="#007bff">
+    
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Reussitess® Nexus">
+    
+    <title>Reussitess® Global Nexus - Hub Central</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #1e3c72;
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+        
+        .nexus-description {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .nexus-description p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .global-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: #7e22ce;
+            box-shadow: 0 8px 30px rgba(126, 34, 206, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+        
+        .section-title {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title h2 {
+            color: #1e3c72;
+            font-size: 2em;
+        }
+        
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .network-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .network-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #1e3c72 0%, #7e22ce 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .network-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .network-card:hover {
+            transform: translateY(-8px);
+            border-color: #7e22ce;
+            box-shadow: 0 10px 35px rgba(126, 34, 206, 0.25);
+        }
+        
+        .network-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .network-title {
+            color: #1e3c72;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .network-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .network-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 34, 206, 0.3);
+        }
+        
+        .network-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(126, 34, 206, 0.4);
+        }
+        
+        .quick-actions {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        .btn-action {
+            background: linear-gradient(135deg, #1e3c72 0%, #7e22ce 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(126, 34, 206, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(126, 34, 206, 0.4);
+        }
+        
+        footer {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #28a745;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .offline .status-indicator {
+            background: #dc3545;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .network-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌐 Reussitess® Global Nexus</h1>
+            <p class="subtitle">Le Hub Central du Réseau Mondial</p>
+        </header>
+        
+        <div class="nexus-description">
+            <p>
+                <strong>Bienvenue au cœur du réseau Reussitess® Global.</strong><br>
+                Ce hub central connecte nos 42 boutiques Amazon à travers 14 pays, 
+                offrant un accès unifié à notre écosystème mondial d'excellence et d'innovation.
+            </p>
+        </div>
+        
+        <div class="global-stats">
+            <div class="stat-card">
+                <span class="stat-number">42</span>
+                <span class="stat-label">Boutiques Amazon</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">14</span>
+                <span class="stat-label">Pays Connectés</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5</span>
+                <span class="stat-label">Continents</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">24/7</span>
+                <span class="stat-label">Disponibilité</span>
+            </div>
+        </div>
+        
+        <div class="section-title">
+            <h2>🔗 Accès Rapide au Réseau</h2>
+        </div>
+        
+        <div class="network-grid">
+            <div class="network-card" onclick="navigateTo('./index.html')">
+                <span class="network-icon">🏠</span>
+                <div class="network-title">Page d'Accueil</div>
+                <div class="network-description">
+                    Découvrez notre vitrine principale avec vue d'ensemble du réseau global
+                </div>
+                <a href="./index.html" class="network-link">Accéder</a>
+            </div>
+            
+            <div class="network-card" onclick="navigateTo('./dashboard.html')">
+                <span class="network-icon">📊</span>
+                <div class="network-title">Tableau de Bord</div>
+                <div class="network-description">
+                    Gérez et suivez vos activités sur notre plateforme sécurisée
+                </div>
+                <a href="./dashboard.html" class="network-link">Accéder</a>
+            </div>
+            
+            <div class="network-card" onclick="navigateTo('./login.html')">
+                <span class="network-icon">🔐</span>
+                <div class="network-title">Connexion</div>
+                <div class="network-description">
+                    Accédez à votre espace personnel sécurisé
+                </div>
+                <a href="./login.html" class="network-link">Se Connecter</a>
+            </div>
+            
+            <div class="network-card" onclick="navigateTo('./register.html')">
+                <span class="network-icon">📝</span>
+                <div class="network-title">Inscription</div>
+                <div class="network-description">
+                    Rejoignez le réseau Reussitess® Global
+                </div>
+                <a href="./register.html" class="network-link">S'inscrire</a>
+            </div>
+            
+            <div class="network-card">
+                <span class="network-icon">🛍️</span>
+                <div class="network-title">Boutiques Mondiales</div>
+                <div class="network-description">
+                    Explorez nos 42 boutiques Amazon dans 14 pays
+                </div>
+                <a href="#" class="network-link" onclick="showShopsInfo(); return false;">Découvrir</a>
+            </div>
+            
+            <div class="network-card">
+                <span class="network-icon">📱</span>
+                <div class="network-title">Application PWA</div>
+                <div class="network-description">
+                    Installez notre app pour un accès hors ligne
+                </div>
+                <a href="#" class="network-link" onclick="installPWA(); return false;">Installer</a>
+            </div>
+        </div>
+        
+        <div class="quick-actions">
+            <h3 style="color: #1e3c72; margin-bottom: 15px;">Actions Rapides</h3>
+            <div class="action-buttons">
+                <a href="./index.html" class="btn-action">🏠 Accueil</a>
+                <a href="./dashboard.html" class="btn-action">📊 Dashboard</a>
+                <button class="btn-action" onclick="checkNetworkStatus()">🌐 Test Connexion</button>
+                <button class="btn-action" onclick="showStats()">📈 Statistiques</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p><strong>Reussitess® Global Nexus</strong></p>
+            <p style="color: #666; margin-top: 10px;">Hub Central du Réseau Mondial</p>
+            <div class="connection-status" id="connectionStatus">
+                <div class="status-indicator"></div>
+                <span id="statusText">Connecté au réseau global</span>
+            </div>
+            <p style="margin-top: 15px; color: #999;">© 2024 Tous droits réservés</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variables globales
+        let deferredPrompt;
+        
+        // Enregistrement du Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('✅ Service Worker enregistré (Nexus):', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('❌ Échec enregistrement Service Worker:', error);
+                    });
+            });
+        }
+        
+        // Gestion de l'installation PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+        
+        function installPWA() {
+            if (!deferredPrompt) {
+                alert('L\'application est déjà installée ou l\'installation n\'est pas disponible sur cet appareil.');
+                return;
+            }
+            
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('✅ PWA installée avec succès');
+                    alert('✅ Application installée avec succès !');
+                } else {
+                    console.log('❌ Installation PWA annulée');
+                }
+                deferredPrompt = null;
+            });
+        }
+        
+        // Navigation
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+        
+        // Détection du statut en ligne/hors ligne
+        function updateOnlineStatus() {
+            const statusEl = document.getElementById('statusText');
+            const statusContainer = document.getElementById('connectionStatus');
+            
+            if (navigator.onLine) {
+                statusEl.textContent = 'Connecté au réseau global';
+                statusContainer.classList.remove('offline');
+            } else {
+                statusEl.textContent = 'Mode hors ligne - Fonctionnalités limitées';
+                statusContainer.classList.add('offline');
+            }
+        }
+        
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        
+        // Test de connexion
+        function checkNetworkStatus() {
+            const status = navigator.onLine ? 'en ligne ✅' : 'hors ligne ❌';
+            alert(`Statut de la connexion : ${status}\n\nType de connexion : ${navigator.connection ? navigator.connection.effectiveType : 'non disponible'}`);
+        }
+        
+        // Afficher les informations sur les boutiques
+        function showShopsInfo() {
+            const countries = [
+                '🇫🇷 France', '🇺🇸 États-Unis', '🇩🇪 Allemagne', '🇬🇧 Royaume-Uni',
+                '🇪🇸 Espagne', '🇮🇹 Italie', '🇯🇵 Japon', '🇨🇦 Canada',
+                '🇦🇺 Australie', '🇧🇷 Brésil', '🇲🇽 Mexique', '🇮🇳 Inde',
+                '🇸🇬 Singapour', '🇦🇪 Émirats Arabes Unis'
+            ];
+            
+            alert('🛍️ Nos Boutiques Mondiales\n\n' + countries.join('\n') + '\n\n42 boutiques Amazon au total !');
+        }
+        
+        // Afficher les statistiques
+        function showStats() {
+            const stats = `
+📊 Statistiques du Réseau Global
+
+🛍️ Boutiques: 42
+🌍 Pays: 14
+🌏 Continents: 5
+⏰ Disponibilité: 24/7
+
+💡 Type de connexion: ${navigator.onLine ? 'En ligne' : 'Hors ligne'}
+📱 Plateforme: ${navigator.platform}
+🌐 Langue: ${navigator.language}
+            `;
+            
+            alert(stats);
+        }
+        
+        // Animation au chargement
+        window.addEventListener('load', () => {
+            updateOnlineStatus();
+            
+            // Animation des cartes
+            document.querySelectorAll('.stat-card, .network-card').forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    el.style.transition = 'all 0.6s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 80);
+            });
+        });
+        
+        // Prévenir les clics sur les cartes de déclencher le lien
+        document.querySelectorAll('.network-card a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>
