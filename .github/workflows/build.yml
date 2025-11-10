@@ -1,0 +1,96 @@
+name: Build & Sign with Secrets
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    # Configuration de Node.js et Java 21 (obligatoire pour Gradle récent)
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+        
+    # Build de l'application web
+    - name: Install dependencies and build web app
+      run: npm i && npm run build
+    
+    # Création et synchronisation du projet Android Capacitor
+    - name: Add and Sync Android Project
+      run: |
+        rm -rf android/
+        npm i @capacitor/core @capacitor/cli @capacitor/android
+        # NOTE: Nous conservons l'appId com.reussitess.globalnexus car il est utilisé pour la clé
+        echo '{"appId":"com.reussitess.globalnexus","appName":"Reussitess Global Nexus","webDir":"dist"}' > capacitor.config.json
+        npx cap add android
+        # Ajout de la configuration des variables pour Gradle (SDK versions)
+        mkdir -p android/capacitor-cordova-android-plugins
+        echo 'ext{minSdkVersion=22;compileSdkVersion=34;targetSdkVersion=34}'>android/capacitor-cordova-android-plugins/cordova.variables.gradle
+        npx cap sync android
+    
+    # ========== SIGNATURE SÉCURISÉE PAR SECRETS ==========
+    
+    # 1. Décoder le Keystore Base64 stocké dans les secrets et le recréer
+    - name: Decode Keystore from Secret
+      uses: timheuer/base64-to-file@v1.2
+      with:
+        fileName: 'r.jks'
+        encodedString: ${{ secrets.KEYSTORE_BASE64 }}
+        
+    # 2. Déplacer le Keystore décodé dans le répertoire Android
+    - name: Move Keystore to Android App folder
+      run: |
+        mv r.jks android/app/r.jks
+        echo "✅ Keystore décodé et placé dans android/app/"
+
+    # 3. Créer le fichier signing.gradle en utilisant les SECRETS
+    - name: Create signing config file using Secrets
+      run: |
+        cat > android/app/signing.gradle << 'EOF'
+        android {
+            signingConfigs {
+                release {
+                    storeFile file('r.jks')
+                    storePassword '${{ secrets.KEYSTORE_PASS }}'
+                    keyAlias '${{ secrets.KEY_ALIAS }}'
+                    keyPassword '${{ secrets.KEY_PASS }}'
+                }
+            }
+        }
+        android.buildTypes.release.signingConfig = android.signingConfigs.release
+        EOF
+        echo "✅ signing.gradle créé avec les secrets"
+
+    # 4. Appliquer le fichier de signature au build.gradle
+    - name: Apply signing config to build.gradle
+      run: echo "apply from: 'signing.gradle'" >> android/app/build.gradle
+    
+    # =======================================================
+    
+    # Build du AAB et de l'APK signé
+    - name: Build signed AAB & APK
+      run: cd android && chmod +x gradlew && ./gradlew bundleRelease assembleRelease --no-daemon
+      
+    # Téléchargement des artefacts
+    - name: Upload signed builds
+      uses: actions/upload-artifact@v4
+      with:
+        name: signed-app
+        path: |
+          android/app/build/outputs/bundle/release/*.aab
+          android/app/build/outputs/apk/release/*.apk
