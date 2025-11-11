@@ -1,14 +1,11 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa')({
-    dest: 'public', // Le Service Worker sera placé ici
-    register: true, // Enregistre le Service Worker automatiquement
-    skipWaiting: true, // Active la nouvelle version du SW immédiatement
-    disable: process.env.NODE_ENV === 'development', // Désactive en mode 'dev' pour accélérer
-});
-
 const nextConfig = {
-    // Ajoutez ici toutes vos configurations Next.js spécifiques
-    reactStrictMode: true,
-};
+  reactStrictMode: true,
+  swcMinify: true,
+  output: 'export',
+  // Temporairement désactiver le support PWA pour éviter le cache persistant
+  // Si vous utilisez 'next-pwa', assurez-vous que 'disable' est mis à true.
+  // Si vous n'utilisez pas de package, cette configuration suffit.
+}
 
-module.exports = withPWA(nextConfig);
+module.exports = nextConfig
