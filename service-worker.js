@@ -1,17 +1,19 @@
 // Service Worker pour Reussitess® Global PWA
-const CACHE_NAME = 'reussitess-v1.0.0';
+const CACHE_NAME = 'reussitess-v1.1.0';
 const OFFLINE_PAGE = './offline.html';
 
 // Fichiers à mettre en cache lors de l'installation
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './nexus.html',
+  './dashboard.html',
+  './login.html',
+  './register.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
-  './offline.html',
-  './css/styles.css', // Assurez-vous d'avoir ce fichier ou retirez-le si non utilisé
-  './js/app.js' // Assurez-vous d'avoir ce fichier ou retirez-le si non utilisé
+  './offline.html'
 ];
 
 // Installation du Service Worker

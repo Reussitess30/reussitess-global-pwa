@@ -17,26 +17,31 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
-}
-{
-  "name": "Reussitess® Global",
-  "short_name": "Reussitess",
-  "description": "Accédez à nos 42 boutiques Amazon dans 14 pays",
-  "start_url": "./",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#007bff",
-  "icons": [
+  ],
+  "shortcuts": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "name": "Global Nexus",
+      "short_name": "Nexus",
+      "description": "Accéder au hub central du réseau global",
+      "url": "./nexus.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
+      "name": "Tableau de Bord",
+      "short_name": "Dashboard",
+      "description": "Accéder au tableau de bord",
+      "url": "./dashboard.html",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }
