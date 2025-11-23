@@ -1,3 +1,5 @@
+import InstallPWA from '../components/InstallPWA'
+
 export default function Home() {
   return (
     <div style={{
@@ -18,6 +20,9 @@ export default function Home() {
             🏆 Reussitess® Global Nexus 🏆
           </h1>
           <p style={{color: '#666', fontSize: '1.2em'}}>26 Boutiques Amazon dans 14 Pays</p>
+          
+          {/* BOUTON PWA */}
+          <InstallPWA />
         </header>
 
         <div style={{
