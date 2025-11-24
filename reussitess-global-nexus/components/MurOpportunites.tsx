@@ -5,7 +5,7 @@ export default function MurOpportunites() {
     {u:"Marie",txt:"Equipe projet Amazon FBA",type:"Membre"},
   ]);
   const [input, setInput] = useState("");
-  function addPost(e) {
+  function addPost(e: React.FormEvent) {
     e.preventDefault();
     setPosts([...posts,{u:"Moi",txt:input,type:"Membre"}]);
     setInput("");
