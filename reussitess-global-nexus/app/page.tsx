@@ -1,6 +1,6 @@
 import ChampionDuMois from "../components/ChampionDuMois";
 import MurOpportunites from "../components/MurOpportunites";
-// Ajoute ici les autres modules si tu veux !
+// Ajoute ici les autres modules si besoin !
 
 export default function HomePage() {
   return (
