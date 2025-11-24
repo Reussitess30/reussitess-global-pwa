@@ -16,10 +16,13 @@
     "framer-motion": "^12.23.24",
     "next": "^15.5.6",
     "next-intl": "^4.5.5",
+    "next-mdx-remote": "^5.0.0",
     "next-pwa": "^5.6.0",
     "react": "^19.2.0",
+    "react-cookie-consent": "^9.0.0",
     "react-dom": "^19.2.0",
     "react-hot-toast": "^2.6.0",
+    "react-speech-recognition": "^4.0.1",
     "resend": "^6.5.2"
   },
   "devDependencies": {
