@@ -1,24 +1,31 @@
-import { useState } from "react";
+import React, { useState } from "react";
 const countries = [
   "France", "Guyane", "Martinique", "Guadeloupe",
   "Belgium", "Netherlands", "Sweden", "Germany",
   "Italy", "Spain", "Canada", "Australia", "Brazil", "India"
 ];
+
 export default function NewsletterPays() {
-  const [country, setCountry] = useState(countries[0]);
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('');
-  async function handleSubmit(e) {
+  const [country, setCountry] = useState<string>(countries[0]);
+  const [email, setEmail] = useState<string>('');
+  const [status, setStatus] = useState<string>('');
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setStatus('Envoi...');
-    const res = await fetch('/api/newsletter', {
-      method: 'POST',
-      body: JSON.stringify({ email, country }),
-      headers: { 'Content-Type': 'application/json' }
-    });
-    if (res.ok) setStatus("Inscription réussie !");
-    else setStatus("Erreur ou email déjà enregistré.");
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        body: JSON.stringify({ email, country }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) setStatus("Inscription réussie !");
+      else setStatus("Erreur ou email déjà enregistré.");
+    } catch {
+      setStatus("Erreur de connexion.");
+    }
   }
+
   return (
     <form onSubmit={handleSubmit} className="bg-blue-50 p-6 rounded-xl shadow w-full max-w-md mx-auto">
       <h3 className="text-xl font-bold mb-4 text-blue-700">Recevez la newsletter Reussitess®</h3>
