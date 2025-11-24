@@ -1,6 +1,5 @@
 const CACHE_NAME = 'reussitess-v2';
 const PRECACHE_URLS = ['/', '/manifest.json', '/icon-192.png', '/icon-512.png', '/offline.html'];
-
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS)).then(() => self.skipWaiting()));
 });
