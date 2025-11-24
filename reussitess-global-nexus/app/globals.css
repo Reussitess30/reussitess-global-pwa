@@ -24,3 +24,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+:root {
+  --brand-blue: #144dc0;
+  --brand-bg-gradient: linear-gradient(135deg, #667eea 0%, #144dc0 100%);
+  --champion-gold: #ffd700;
+}
+body {
+  background: var(--brand-bg-gradient);
+  color: #fff;
+}
+header, .hero {
+  background: var(--brand-blue);
+  color: var(--champion-gold);
+  box-shadow: 0 4px 24px rgba(20,77,192,0.05);
+}
+.btn-primary, button, input[type="submit"] {
+  background: var(--champion-gold);
+  color: var(--brand-blue);
+  font-weight: bold;
+  border-radius: 7px;
+  padding: 0.5em 1.1em;
+  border: none;
+  box-shadow: 0 2px 20px rgba(20,77,192,0.15);
+}
+.banner-excellence {
+  background: var(--brand-blue);
+  color: var(--champion-gold);
+  padding: 1em;
+  font-size: 1.25em;
+  text-align: center;
+  font-weight: bold;
+}

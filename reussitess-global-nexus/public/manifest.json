@@ -1,0 +1,16 @@
+{
+  "name": "Reussitess® Global Nexus",
+  "short_name": "Reussitess",
+  "description": "Plateforme d'excellence Amazon - 14 pays - Guadeloupe Terre De Champions",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "start_url": "/",
+  "background_color": "#1e3a8a",
+  "theme_color": "#144dc0",
+  "display": "standalone",
+  "scope": "/",
+  "orientation": "portrait",
+  "lang": "fr"
+}
