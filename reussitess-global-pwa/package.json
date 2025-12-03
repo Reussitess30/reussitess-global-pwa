@@ -1,7 +1,32 @@
 {
-  "name": "reussitess-global-pwa",
+  "name": "reussitess-pwa-production",
   "version": "1.0.0",
+  "description": "Reussitess® Global Nexus - 26 Amazon shops across 14 countries and 5 continents",
+  "type": "module",
   "scripts": {
-    "build": "echo 'Static PWA ready'"
-  }
+    "build": "echo '✅ Static PWA - No build needed'",
+    "start": "echo '🌐 Visit: https://reussitess-pwa-production.vercel.app/'",
+    "dev": "echo '💻 Open index.html in browser'"
+  },
+  "keywords": [
+    "amazon",
+    "affiliate",
+    "pwa",
+    "reussitess",
+    "influencer",
+    "e-commerce",
+    "global",
+    "boutiques"
+  ],
+  "author": {
+    "name": "Porinus",
+    "email": "contact@reussitess.com",
+    "url": "https://reussitess.fr"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reussitess30/reussitess-global-pwa.git"
+  },
+  "license": "UNLICENSED",
+  "private": true
 }
