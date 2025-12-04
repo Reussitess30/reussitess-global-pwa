@@ -1,0 +1,9 @@
+# Reussitess® Global Nexus - Robots.txt
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.env
+Disallow: /.git/
+
+Sitemap: https://shop.reussitess.fr/sitemap.xml

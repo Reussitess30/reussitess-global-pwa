@@ -1,0 +1,7 @@
+Contact: contact@reussitess.com
+Preferred-Languages: fr, en
+Canonical: https://shop.reussitess.fr/.well-known/security.txt
+Policy: https://shop.reussitess.fr/security-policy
+Acknowledgments: https://shop.reussitess.fr/security-acknowledgments
+
+# Reussitess® Security Contact
