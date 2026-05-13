@@ -74,3 +74,4 @@ sw.js.map
 # Other
 .netlify/
 .firebase/
+.env*.local

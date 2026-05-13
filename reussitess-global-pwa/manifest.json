@@ -1,0 +1,21 @@
+{
+  "name": "Reussitess® Global Nexus",
+  "short_name": "Reussitess®",
+  "description": "26 Boutiques Amazon Mondiales - 14 Pays - 5 Continents.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#667eea",
+  "theme_color": "#007bff",
+  "lang": "fr",
+  "categories": ["shopping", "lifestyle"],
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Boutiques Personnelles", "url": "/?filter=personal", "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }] },
+    { "name": "Boutiques Influenceur", "url": "/?filter=influencer", "icons": [{ "src": "./icon-192.png", "sizes": "192x192" }] }
+  ]
+}
