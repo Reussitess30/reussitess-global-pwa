@@ -1,5 +1,8 @@
 {
   "version": 2,
+  "builds": [
+    { "src": "**/*", "use": "@vercel/static" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -9,8 +12,7 @@
         {"key": "X-XSS-Protection", "value": "1; mode=block"},
         {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
         {"key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()"},
-        {"key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload"},
-        {"key": "Content-Security-Policy", "value": "default-src 'self' 'unsafe-inline' https://www.amazon.* https://amzlink.to; frame-ancestors 'none'"}
+        {"key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload"}
       ]
     }
   ],
